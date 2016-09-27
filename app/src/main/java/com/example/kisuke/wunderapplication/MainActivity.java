@@ -1,6 +1,7 @@
 package com.example.kisuke.wunderapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -70,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new RVAdapter(placemarks);
         mRecyclerView.setAdapter(mAdapter);
 
+
+
+    }
+
+
+    private void showMap(){
+        Intent intent = new Intent(this, MapsActivity.class);
+
+        startActivity(intent);
 
 
     }
