@@ -10,6 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -42,5 +44,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        showWunderCar();
+    }
+
+    private void showWunderCar(){
+       /* List<Placemark> placemarks;
+        placemarks =  WunderController.getInfo(getApplicationContext());
+        int sizePlacemarks = placemarks.size();
+        int count = 0;
+        while (count < sizePlacemarks){
+            int lat = placemarks.get(count).getCoordinates();
+            LatLng sydney = new LatLng(-34, 151);
+            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
+        } */
+
+
     }
 }

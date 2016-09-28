@@ -9,27 +9,41 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private String stringUrl = "http://wunder.comxa.com/cars_locations.json";
     private static final String DEBUG_TAG = "Main Activity...";
-    private WunderCar wunderCar;
+
+    //To show the list of placemarks in the layout
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-
+    //button to call MapsActivity
+    private Button bMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //set listener to the button
+        bMap =(Button)findViewById(R.id.button_map);
+        bMap.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+               showMap(view);
+
+            }
+        } );
 
         //check network connection before fetching the URL
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -40,48 +54,44 @@ public class MainActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
 
             Log.i(DEBUG_TAG, "connection successful");
-
             new JSONFromURL(this).execute(stringUrl);
 
-
         } else {
-            // If the connection is not ok, then use previous version saved into SD.
+            // If the connection is not ok, then use information saved into the database.
             Toast.makeText(this, "No network connection available. " +
                     "Using local information", Toast.LENGTH_LONG).show();
         }
 
         showList();
-
-
     }
 
+    /**
+     * @desc Displays list of placemarks in the layout using a RecyclerView
+     */
     private void showList() {
 
-        WunderController wunderController = new WunderController(getApplicationContext(),wunderCar);
         List<Placemark> placemarks;
-        placemarks = wunderController.getInfo();
+        placemarks = WunderController.getInfo(getApplicationContext());
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.rv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv);
 
-         // use a linear layout manager
-         mLayoutManager = new LinearLayoutManager(this);
-         mRecyclerView.setLayoutManager(mLayoutManager);
+        // set linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-
-        // specify an adapter
+        // specify the adapter
         mAdapter = new RVAdapter(placemarks);
         mRecyclerView.setAdapter(mAdapter);
 
-
-
     }
 
+    /**
+     * @desc calls the next activity: MapsActivity.
+     */
+    private void showMap(View view) {
 
-    private void showMap(){
         Intent intent = new Intent(this, MapsActivity.class);
-
         startActivity(intent);
-
 
     }
 }

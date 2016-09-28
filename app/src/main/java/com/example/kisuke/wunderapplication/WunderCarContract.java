@@ -2,17 +2,20 @@ package com.example.kisuke.wunderapplication;
 
 import android.provider.BaseColumns;
 
-import static com.example.kisuke.wunderapplication.WunderCarContract.PlacemarkEntry.COLUMN_VIN;
-
 
 /**
- * Created by natal on 24/09/2016.
+ * Created by natalya blanco on 24/09/2016.
+ * natalyablanco@gmail.com
+ * <p>
+ * this contract declares how the database is organized
+ * In this contract: Table called "placemark" with all the attributes
  */
-public  class WunderCarContract {
+public class WunderCarContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
-    private WunderCarContract() {}
+    private WunderCarContract() {
+    }
 
     /* Inner class for placemarks entries.*/
     public static class PlacemarkEntry implements BaseColumns {

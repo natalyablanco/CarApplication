@@ -4,46 +4,40 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.location.places.Place;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
- * Created by kisuke on 9/25/2016.
+ * Created by Natalya Blanco on 9/25/2016.
+ * natalyablanco@gmail.com
+ * <p>
+ * WunderController class executes operations in the database.
  */
 
 public class WunderController {
 
     private static WunderCarDBHelper mDbHelper;
-    private static Context myContextRef;
-    private static WunderCar wunderCar;
 
-    public WunderController(Context myContextRef, WunderCar wunderCar) {
-        this.myContextRef = myContextRef;
-        this.wunderCar = wunderCar;
-    }
-
-    //Save Json into the database. It has to delete the old information.
-    public static void saveSQL(){
+    /**
+     * @desc Save WunderCar object into the database.
+     * It will delete the old information to update the information
+     */
+    public static void saveSQL(Context myContextRef, WunderCar wunderCar) {
 
         // Gets the data repository in write mode
         mDbHelper = new WunderCarDBHelper(myContextRef);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+        //discard the data and to start over
         mDbHelper.deleteContent(db);
 
         int len = wunderCar.getPlacemarks().size();
         int counter = 0;
-        while (counter < len){
+        while (counter < len) {
 
-            Placemark pc =   wunderCar.getPlacemarks().get(counter);
+            Placemark pc = wunderCar.getPlacemarks().get(counter);
 
             ContentValues placemark = new ContentValues();
 
@@ -66,7 +60,7 @@ public class WunderController {
     }
 
     //Get the info from the database. return list of placemarks
-    public static List<Placemark> getInfo(){
+    public static List<Placemark> getInfo(Context myContextRef) {
 
         List<Placemark> placemarks = new ArrayList<Placemark>();
 
@@ -92,25 +86,25 @@ public class WunderController {
 
         Cursor c = db.query(
                 WunderCarContract.PlacemarkEntry.TABLE_NAME, // The table to query
-                projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
+                projection,                                  // The columns to return
+                null,                                        // The columns for the WHERE clause
+                null,                                        // The values for the WHERE clause
+                null,                                        // don't group the rows
+                null,                                        // don't filter by row groups
+                null                                         // The sort order
         );
 
         c.moveToFirst();
 
-        Log.i("Object lenght: ", c.getCount()+"");
-        while(!c.isAfterLast()){
+        Log.i("Object lenght: ", c.getCount() + "");
+        while (!c.isAfterLast()) {
 
             List<Double> coord = new ArrayList<>();
             String num = c.getString(c.getColumnIndex(WunderCarContract.PlacemarkEntry.COLUMN_COORDINATES));
             //Log.i("DOUBLE: ", num);
             String[] doubles = num.split(",");
-            coord.add(Double.parseDouble(doubles[0].replace("[","")));
-           // coord.add(Double.parseDouble(doubles[1]));
+            coord.add(Double.parseDouble(doubles[0].replace("[", "")));
+            // coord.add(Double.parseDouble(doubles[1]));
 
 
             Placemark pm = new Placemark(
@@ -123,7 +117,7 @@ public class WunderController {
                     c.getString(c.getColumnIndex(WunderCarContract.PlacemarkEntry.COLUMN_NAME)),
                     c.getString(c.getColumnIndex(WunderCarContract.PlacemarkEntry.COLUMN_VIN)));
 
-            placemarks.add(c.getPosition(),pm);
+            placemarks.add(c.getPosition(), pm);
 
             c.moveToNext();
         }

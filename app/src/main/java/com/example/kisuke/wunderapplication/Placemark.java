@@ -2,17 +2,12 @@ package com.example.kisuke.wunderapplication;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import static com.example.kisuke.wunderapplication.R.id.coordinates;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -52,13 +47,11 @@ public class Placemark implements Serializable {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Placemark() {
     }
 
     /**
-     *
      * @param interior
      * @param engineType
      * @param exterior
@@ -80,9 +73,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The address
+     * @return The address
      */
     @JsonProperty("address")
     public String getAddress() {
@@ -90,9 +81,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param address
-     *     The address
+     * @param address The address
      */
     @JsonProperty("address")
     public void setAddress(String address) {
@@ -100,9 +89,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The coordinates
+     * @return The coordinates
      */
     @JsonProperty("coordinates")
     public List<Double> getCoordinates() {
@@ -110,9 +97,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param coordinates
-     *     The coordinates
+     * @param coordinates The coordinates
      */
     @JsonProperty("coordinates")
     public void setCoordinates(List<Double> coordinates) {
@@ -121,9 +106,7 @@ public class Placemark implements Serializable {
 
 
     /**
-     *
-     * @return
-     *     The engineType
+     * @return The engineType
      */
     @JsonProperty("engineType")
     public String getEngineType() {
@@ -131,9 +114,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param engineType
-     *     The engineType
+     * @param engineType The engineType
      */
     @JsonProperty("engineType")
     public void setEngineType(String engineType) {
@@ -141,9 +122,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The exterior
+     * @return The exterior
      */
     @JsonProperty("exterior")
     public String getExterior() {
@@ -151,9 +130,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param exterior
-     *     The exterior
+     * @param exterior The exterior
      */
     @JsonProperty("exterior")
     public void setExterior(String exterior) {
@@ -161,9 +138,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The fuel
+     * @return The fuel
      */
     @JsonProperty("fuel")
     public Integer getFuel() {
@@ -171,9 +146,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param fuel
-     *     The fuel
+     * @param fuel The fuel
      */
     @JsonProperty("fuel")
     public void setFuel(Integer fuel) {
@@ -181,9 +154,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The interior
+     * @return The interior
      */
     @JsonProperty("interior")
     public String getInterior() {
@@ -191,19 +162,15 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param interior
-     *     The interior
+     * @param interior The interior
      */
     @JsonProperty("interior")
     public void setInterior(String interior) {
         this.interior = interior;
     }
 
-       /**
-     *
-     * @return
-     *     The name
+    /**
+     * @return The name
      */
     @JsonProperty("name")
     public String getName() {
@@ -211,9 +178,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param name
-     *     The name
+     * @param name The name
      */
     @JsonProperty("name")
     public void setName(String name) {
@@ -221,9 +186,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @return
-     *     The vin
+     * @return The vin
      */
     @JsonProperty("vin")
     public String getVin() {
@@ -231,9 +194,7 @@ public class Placemark implements Serializable {
     }
 
     /**
-     *
-     * @param vin
-     *     The vin
+     * @param vin The vin
      */
     @JsonProperty("vin")
     public void setVin(String vin) {
