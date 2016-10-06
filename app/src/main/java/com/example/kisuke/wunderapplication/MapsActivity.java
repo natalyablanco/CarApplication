@@ -74,7 +74,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
             LatLng latLngCar = new LatLng(lat.get(1),lat.get(0));
 
-            allMarkers.add(mMap.addMarker(new MarkerOptions().position(latLngCar).title(placemarks.get(count).getName())));
+            allMarkers.add(mMap.addMarker(new MarkerOptions().position(latLngCar)
+                    .title(placemarks.get(count).getName())
+                    .snippet(placemarks.get(count).getAddress())));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngCar, 10));
             count++;
         }
@@ -119,6 +121,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             allMarkers.get(count).setAlpha(1);
             count++;
         }
+
+        marker.hideInfoWindow();
 
     }
 }
