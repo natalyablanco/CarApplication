@@ -19,6 +19,7 @@ import java.util.List;
 public class WunderController {
 
     private static WunderCarDBHelper mDbHelper;
+    private static  SQLiteDatabase db;
 
     /**
      * @desc Save WunderCar object into the database.
@@ -28,7 +29,7 @@ public class WunderController {
 
         // Gets the data repository in write mode
         mDbHelper = new WunderCarDBHelper(myContextRef);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db = mDbHelper.getWritableDatabase();
 
         //discard the data and to start over
         mDbHelper.deleteContent(db);
@@ -40,7 +41,7 @@ public class WunderController {
             Placemark pc = wunderCar.getPlacemarks().get(counter);
 
             ContentValues placemark = new ContentValues();
-
+           // Log.i("Save COORD ", pc.getCoordinates().toString());
             placemark.put(WunderCarContract.PlacemarkEntry.COLUMN_ADDRESS, pc.getAddress());
             placemark.put(WunderCarContract.PlacemarkEntry.COLUMN_COORDINATES, pc.getCoordinates().toString());
             placemark.put(WunderCarContract.PlacemarkEntry.COLUMN_ENGINE_TYPE, pc.getEngineType());
@@ -66,7 +67,7 @@ public class WunderController {
 
         // Gets the data repository in read mode
         mDbHelper = new WunderCarDBHelper(myContextRef);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        db = mDbHelper.getReadableDatabase();
 
 
         // Define a projection that specifies which columns from the database
@@ -101,11 +102,11 @@ public class WunderController {
 
             List<Double> coord = new ArrayList<>();
             String num = c.getString(c.getColumnIndex(WunderCarContract.PlacemarkEntry.COLUMN_COORDINATES));
-            //Log.i("DOUBLE: ", num);
             String[] doubles = num.split(",");
             coord.add(Double.parseDouble(doubles[0].replace("[", "")));
-            // coord.add(Double.parseDouble(doubles[1]));
-
+         //   Log.i("DOUBLE: 1 ", Double.parseDouble(doubles[0].replace("[", ""))+"");
+            coord.add(Double.parseDouble(doubles[1]));
+       //     Log.i("DOUBLE: 2 ",Double.parseDouble(doubles[1])+"");
 
             Placemark pm = new Placemark(
                     c.getString(c.getColumnIndex(WunderCarContract.PlacemarkEntry.COLUMN_ADDRESS)),
