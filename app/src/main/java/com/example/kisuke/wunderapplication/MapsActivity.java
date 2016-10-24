@@ -1,10 +1,8 @@
 package com.example.kisuke.wunderapplication;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -12,15 +10,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.example.kisuke.wunderapplication.R.id.map;
-import static com.example.kisuke.wunderapplication.R.id.title;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnMapClickListener,
         OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -59,20 +55,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         showWunderCar();
     }
 
-    private void showWunderCar(){
+    private void showWunderCar() {
 
-        placemarks =  WunderController.getInfo(getApplicationContext());
+        placemarks = WunderController.getInfo(getApplicationContext());
         sizePlacemarks = placemarks.size();
         allMarkers = new ArrayList<>();
-        Log.i("MAP size ", sizePlacemarks+"");
+        Log.i("MAP size ", sizePlacemarks + "");
         int count = 0;
 
-        while (count < sizePlacemarks){
+        while (count < sizePlacemarks) {
 
             List<Double> lat = placemarks.get(count).getCoordinates();
             //Log.i("lat values ", lat.toString()+"");
 
-            LatLng latLngCar = new LatLng(lat.get(1),lat.get(0));
+            LatLng latLngCar = new LatLng(lat.get(1), lat.get(0));
 
             allMarkers.add(mMap.addMarker(new MarkerOptions().position(latLngCar)
                     .title(placemarks.get(count).getName())
@@ -87,42 +83,69 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         // Set a listener for info window events.
         mMap.setOnInfoWindowClickListener(this);
 
+        LatLng latlng;
+        mMap.setOnMapClickListener(this);
+
 
     }
 
-    /** Called when the user clicks a marker.
-     *
+    /**
+     * Called when the user clicks a marker.
      */
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the data from the marker.
-        Log.i("MAP: ", "marker pressed" + marker.getTitle());
+
         int count = 0;
 
-        while(count<sizePlacemarks){
-            if (allMarkers.get(count).getTitle() != marker.getTitle())
-                allMarkers.get(count).setAlpha(0);
+        if(!oneVisible) {
+            Log.i("MAP: ", "marker pressed" + marker.getTitle());
+            while (count < sizePlacemarks) {
+                if (!allMarkers.get(count).getTitle().equals(marker.getTitle()))
+                    allMarkers.get(count).setAlpha(0);
 
-            count++;
+                count++;
+            }
+
+            oneVisible = true;
+        }else{
+            marker.hideInfoWindow();
+            showAllMarkers();
+            oneVisible = false;
+
         }
 
-        oneVisible = true;
         return false;
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        //showAllMarkers();
+        //marker.hideInfoWindow();
 
-        oneVisible = false;
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+
+        if(oneVisible)
+            oneVisible = false;
+
+        showAllMarkers();
+
+
+    }
+
+    private void showAllMarkers(){
+
         int count = 0;
 
-        while(count<sizePlacemarks){
+        while (count < sizePlacemarks) {
             allMarkers.get(count).setAlpha(1);
             count++;
         }
 
-        marker.hideInfoWindow();
-
     }
+
 }
