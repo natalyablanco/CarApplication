@@ -1,4 +1,4 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +17,7 @@ import java.util.List;
  * Class created by Pojo
  * http://www.jsonschema2pojo.org/
  */
-public class WunderCar implements Serializable {
+public class ObjectCar implements Serializable {
 
     @JsonProperty("placemarks")
     private List<Placemark> placemarks = new ArrayList<Placemark>();
@@ -26,13 +26,13 @@ public class WunderCar implements Serializable {
     /**
      * No args constructor for use in serialization
      */
-    public WunderCar() {
+    public ObjectCar() {
     }
 
     /**
      * @param placemarks
      */
-    public WunderCar(List<Placemark> placemarks) {
+    public ObjectCar(List<Placemark> placemarks) {
         this.placemarks = placemarks;
     }
 

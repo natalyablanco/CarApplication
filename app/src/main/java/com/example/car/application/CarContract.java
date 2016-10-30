@@ -1,4 +1,4 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 import android.provider.BaseColumns;
 
@@ -10,11 +10,11 @@ import android.provider.BaseColumns;
  * this contract declares how the database is organized
  * In this contract: Table called "placemark" with all the attributes
  */
-public class WunderCarContract {
+public class CarContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
-    private WunderCarContract() {
+    private CarContract() {
     }
 
     /* Inner class for placemarks entries.*/

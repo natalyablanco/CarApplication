@@ -1,4 +1,4 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String stringUrl = "http://wunder.comxa.com/cars_locations.json";
+    private String stringUrl = "http://natalyablanco.000webhostapp.com/placemarks.json";
     private static final String DEBUG_TAG = "Main Activity...";
 
     //To show the list of placemarks in the layout
@@ -66,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @desc Displays list of placemarks in the layout using a RecyclerView
+     *  Displays list of placemarks in the layout using a RecyclerView
      */
     private void showList() {
 
         List<Placemark> placemarks;
-        placemarks = WunderController.getInfo(getApplicationContext());
+        placemarks = CarController.getInfo(getApplicationContext());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @desc calls the next activity: MapsActivity.
+     *  calls the next activity: MapsActivity.
      */
     private void showMap(View view) {
 

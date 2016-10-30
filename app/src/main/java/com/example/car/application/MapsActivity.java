@@ -1,4 +1,4 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
-import static com.example.kisuke.wunderapplication.R.id.map;
+import static com.example.car.application.R.id.map;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
@@ -40,24 +40,18 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera.
-     * We fill up the map with the coordinates saved into WunderCar
+     * We fill up the map with the coordinates saved into Car
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-        showWunderCar();
+        showCar();
     }
 
-    private void showWunderCar() {
+    private void showCar() {
 
-        placemarks = WunderController.getInfo(getApplicationContext());
+        placemarks = CarController.getInfo(getApplicationContext());
         sizePlacemarks = placemarks.size();
         allMarkers = new ArrayList<>();
         Log.i("MAP size ", sizePlacemarks + "");
@@ -99,30 +93,24 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         int count = 0;
 
-        if(!oneVisible) {
-            Log.i("MAP: ", "marker pressed" + marker.getTitle());
-            while (count < sizePlacemarks) {
-                if (!allMarkers.get(count).getTitle().equals(marker.getTitle()))
-                    allMarkers.get(count).setAlpha(0);
+        marker.setAlpha(1);
+        Log.i("MAP: ", "marker pressed " + marker.getTitle());
+        while (count < sizePlacemarks) {
+            if (!allMarkers.get(count).getTitle().equals(marker.getTitle()))
+                allMarkers.get(count).setAlpha(0);
 
-                count++;
-            }
+            count++;
+        }
 
             oneVisible = true;
-        }else{
-            marker.hideInfoWindow();
-            showAllMarkers();
-            oneVisible = false;
-
-        }
 
         return false;
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        //showAllMarkers();
-        //marker.hideInfoWindow();
+        showAllMarkers();
+        marker.hideInfoWindow();
 
     }
 
@@ -141,6 +129,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         int count = 0;
 
+        oneVisible = false;
         while (count < sizePlacemarks) {
             allMarkers.get(count).setAlpha(1);
             count++;

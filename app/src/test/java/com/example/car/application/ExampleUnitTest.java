@@ -1,4 +1,4 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 
 import android.app.Activity;
@@ -23,7 +23,7 @@ public class JSONFromURL extends AsyncTask<String, String, Integer> {
 
     private static final String DEBUG_TAG = "HttpConnection...";
     private Activity myContextRef;
-    private WunderCar wunderCar;
+    private ObjectCar car;
 
     //Constructor
     public JSONFromURL(Activity myContextRef) {
@@ -63,10 +63,10 @@ public class JSONFromURL extends AsyncTask<String, String, Integer> {
             //used Jackson library to map the JSON from URL
             URL jsonUrl = new URL(urlString);
             ObjectMapper mapper = new ObjectMapper();
-            wunderCar = new WunderCar();
-            wunderCar = mapper.readValue(jsonUrl, WunderCar.class);
+            car = new ObjectCar();
+            car = mapper.readValue(jsonUrl, ObjectCar.class);
 
-            WunderController.saveSQL(myContextRef, wunderCar);
+            CarController.saveSQL(myContextRef, car);
             Log.i(DEBUG_TAG, "JSON saved into DB");
 
         } catch (MalformedURLException e) {

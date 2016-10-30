@@ -1,10 +1,10 @@
-package com.example.kisuke.wunderapplication;
+package com.example.car.application;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.kisuke.wunderapplication.WunderCarContract.PlacemarkEntry.COLUMN_VIN;
+import static com.example.car.application.CarContract.PlacemarkEntry.COLUMN_VIN;
 
 /**
  * Created by natalya blanco on 24/09/2016.
@@ -12,30 +12,30 @@ import static com.example.kisuke.wunderapplication.WunderCarContract.PlacemarkEn
  * <p>
  * This class implements the methods to maintain the database and the tables.
  */
-public class WunderCarDBHelper extends SQLiteOpenHelper {
+public class CarDBHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "WunderCar.db";
+    public static final String DATABASE_NAME = "Car.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_PLACEMARK_ENTRIES =
-            "CREATE TABLE " + WunderCarContract.PlacemarkEntry.TABLE_NAME + " (" +
-                    WunderCarContract.PlacemarkEntry._ID + " INTEGER PRIMARY KEY," +
-                    WunderCarContract.PlacemarkEntry.COLUMN_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                    WunderCarContract.PlacemarkEntry.COLUMN_COORDINATES + TEXT_TYPE + COMMA_SEP +
-                    WunderCarContract.PlacemarkEntry.COLUMN_ENGINE_TYPE + TEXT_TYPE + COMMA_SEP +
-                    WunderCarContract.PlacemarkEntry.COLUMN_EXTERIOR + TEXT_TYPE + COMMA_SEP +
-                    WunderCarContract.PlacemarkEntry.COLUMN_FUEL + TEXT_TYPE + COMMA_SEP +
-                    WunderCarContract.PlacemarkEntry.COLUMN_INTERIOR + TEXT_TYPE + COMMA_SEP +
-                    WunderCarContract.PlacemarkEntry.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+            "CREATE TABLE " + CarContract.PlacemarkEntry.TABLE_NAME + " (" +
+                    CarContract.PlacemarkEntry._ID + " INTEGER PRIMARY KEY," +
+                    CarContract.PlacemarkEntry.COLUMN_ADDRESS + TEXT_TYPE + COMMA_SEP +
+                    CarContract.PlacemarkEntry.COLUMN_COORDINATES + TEXT_TYPE + COMMA_SEP +
+                    CarContract.PlacemarkEntry.COLUMN_ENGINE_TYPE + TEXT_TYPE + COMMA_SEP +
+                    CarContract.PlacemarkEntry.COLUMN_EXTERIOR + TEXT_TYPE + COMMA_SEP +
+                    CarContract.PlacemarkEntry.COLUMN_FUEL + TEXT_TYPE + COMMA_SEP +
+                    CarContract.PlacemarkEntry.COLUMN_INTERIOR + TEXT_TYPE + COMMA_SEP +
+                    CarContract.PlacemarkEntry.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                     COLUMN_VIN + TEXT_TYPE + " )";
 
     private static final String SQL_DELETE_PLACEMARK_ENTRIES =
-            "DROP TABLE IF EXISTS " + WunderCarContract.PlacemarkEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + CarContract.PlacemarkEntry.TABLE_NAME;
 
 
     //Constructor
-    public WunderCarDBHelper(Context context) {
+    public CarDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
