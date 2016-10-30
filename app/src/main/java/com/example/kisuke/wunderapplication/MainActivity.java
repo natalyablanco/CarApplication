@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String stringUrl = "http://wunder.comxa.com/cars_locations.json";
+    private String stringUrl = "https://natalyablanco.000webhostapp.com/placemarks.json";
     private static final String DEBUG_TAG = "Main Activity...";
 
     //To show the list of placemarks in the layout
